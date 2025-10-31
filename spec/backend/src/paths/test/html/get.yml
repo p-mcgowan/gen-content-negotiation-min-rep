@@ -1,0 +1,10 @@
+summary: "Produces html"
+responses:
+  "404":
+    description: "Html not found"
+  "200":
+    description: "Success"
+    content:
+      text/html:
+        schema:
+          type: "string"

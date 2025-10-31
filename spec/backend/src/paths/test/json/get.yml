@@ -1,0 +1,15 @@
+summary: "Produces json"
+responses:
+  "404":
+    description: "Json not found"
+  "200":
+    description: "Success"
+    content:
+      application/json:
+        schema:
+          type: "object"
+          required:
+            - "test"
+          properties:
+            test:
+              type: "string"

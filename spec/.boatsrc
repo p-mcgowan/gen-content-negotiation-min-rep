@@ -1,0 +1,7 @@
+{
+  "picomatchOptions": {
+    "bash": true
+  },
+  "fancyPluralization": true,
+  "paths": {}
+}

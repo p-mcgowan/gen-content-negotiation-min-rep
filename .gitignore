@@ -1,0 +1,10 @@
+dist
+build
+node_modules
+.openapi-nodegen
+changelog.generate-it.json
+jest.config.js
+jest.setup.js
+openapi-nodegen-api-file.yml
+pm2.dev.config.js
+pm2.prod.config.js

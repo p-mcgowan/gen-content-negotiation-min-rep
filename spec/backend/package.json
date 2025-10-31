@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rm -rf build",
+    "build": "NODE_ENV=test boats --yes -i ./src/index.yml -o ./build/api.json",
+    "postbuild": "cp ./build/api*.json ../release/$npm_package_name.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@acrontum/boats-cli": "^2.4.0",
+    "boats": "^5.2.0"
+  }
+}

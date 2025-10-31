@@ -1,0 +1,161 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "backend",
+    "description": "our sweet api",
+    "contact": {
+      "name": "acrontum",
+      "email": "support@acrontum.de"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "/v1"
+    }
+  ],
+  "paths": {
+    "/test/also-both": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Produces both html and json",
+        "description": "Trying to get getSingleSuccessResponse template helper to put both produces in the routes file, didnt work",
+        "operationId": "testAlsoBothGet",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "test"
+                  ],
+                  "properties": {
+                    "test": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Success",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Both not found"
+          }
+        },
+        "x-passRequest": true
+      }
+    },
+    "/test/both": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Produces both html and json",
+        "operationId": "testBothGet",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "test"
+                  ],
+                  "properties": {
+                    "test": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Both not found"
+          }
+        },
+        "x-passRequest": true
+      }
+    },
+    "/test/html": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Produces html",
+        "operationId": "testHtmlGet",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Html not found"
+          }
+        }
+      }
+    },
+    "/test/json": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Produces json",
+        "operationId": "testJsonGet",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "test"
+                  ],
+                  "properties": {
+                    "test": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Json not found"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.1",
+    "title": "backend-oa2",
+    "description": "A sample API",
+    "contact": {
+      "name": "Swagger API Team",
+      "email": "john@boats.io",
+      "url": "https://github.com/johndcarmichael/boats/"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "host": "api.example.com",
+  "paths": {
+    "/test/also-both": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "testAlsoBothGet",
+        "produces": [
+          "application/json",
+          "text/html"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "required": [
+                "test"
+              ],
+              "properties": {
+                "test": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-passRequest": true
+      }
+    },
+    "/test/both": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "testBothGet",
+        "produces": [
+          "application/json",
+          "text/html"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "required": [
+                "test"
+              ],
+              "properties": {
+                "test": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-passRequest": true
+      }
+    },
+    "/test/html": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "testHtmlGet",
+        "produces": [
+          "text/html"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/test/json": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "testJsonGet",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "basePath": "/v1"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "backend-oa2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rm -rf build",
+    "build": "NODE_ENV=test boats --yes -i ./src/index.yml -o ./build/api.json",
+    "postbuild": "cp ./build/api*.json ../release/$npm_package_name.json"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "boats": "^5.2.0"
+  },
+  "dependencies": {
+    "boats": "^5.2.0"
+  },
+  "private": true
+}

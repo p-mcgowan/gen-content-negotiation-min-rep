@@ -1,0 +1,19 @@
+summary: "Produces both html and json"
+x-passRequest: true
+responses:
+  "404":
+    description: "Both not found"
+  "200":
+    description: "Success"
+    content:
+      text/html:
+        schema:
+          type: "string"
+      application/json:
+        schema:
+          type: "object"
+          required:
+            - "test"
+          properties:
+            test:
+              type: "string"
