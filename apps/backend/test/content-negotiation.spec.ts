@@ -17,13 +17,16 @@ const accept = {
   html: 'text/html',
   jsonOrHtml: 'application/json,text/html;q=0.5,application/*',
   applicationOrHtml: 'application/*,text/html;q=0.5',
-  htmlOrJson: 'text/html,application/json;q=0.5,application/*',
+  htmlOrJson: 'text/html,application/json;q=0.5,application/*;q=0.1',
   htmlOrApplication: 'text/html,application/*;q=0.5',
   jsonOrText: 'application/json,text/*;q=0.5',
   textOrJson: 'text/*,application/json;q=0.5',
   invalidWeight: 'text/*;q=0.1, text/html ; q = 0.9 , application/vnd+json; q=1, application/json;q=asdf',
   invalidLength: 'text/*;q=0.1, text/html ; q = 0.9 , application/vnd+json; q=1, application/json;q=asdf'.repeat(12),
 };
+
+// if generate-it'd from main branch, set to false
+const checkNotAcceptableMessage = true;
 
 describe('accept / content-type testing', async () => {
   let server: Http;
@@ -81,7 +84,7 @@ describe('accept / content-type testing', async () => {
             name: 'HttpException',
             status: 406,
             message: 'Not acceptable',
-            body: message,
+            body: checkNotAcceptableMessage ? message : body.body,
           },
           contentType: 'application/json; charset=utf-8',
         },
@@ -100,6 +103,9 @@ describe('accept / content-type testing', async () => {
         },
       },
     );
+  };
+  const nothing = ({ status, body }: SupertestResponse) => {
+    assert.deepStrictEqual({ status, body }, { status: 204, body: {} });
   };
 
   await it('handles accept header for produces html', async () => {
@@ -167,8 +173,8 @@ describe('accept / content-type testing', async () => {
   await it('handles accept header for produces multiple', async () => {
     // none of this works - the /test/both endpoint never receives both produces items
     await client.get('/v1/test/both').set({ accept: accept.json }).expect(json);
-    await client.get('/v1/test/both').set({ accept: accept.any }).expect(html);
-    await client.get('/v1/test/both').set({ accept: accept.empty }).expect(html);
+    await client.get('/v1/test/both').set({ accept: accept.any }).expect(json);
+    await client.get('/v1/test/both').set({ accept: accept.empty }).expect(json);
     await client
       .silence('Not acceptable')
       .get('/v1/test/both')
@@ -186,31 +192,25 @@ describe('accept / content-type testing', async () => {
     await client.get('/v1/test/both').set({ accept: accept.jsonOrText }).expect(json);
     await client.get('/v1/test/both').set({ accept: accept.textOrJson }).expect(html);
     await client.get('/v1/test/both').set({ accept: accept.invalidWeight }).expect(html);
-    await client.silence('Not acceptable').get('/v1/test/json').set({ accept: accept.invalidLength }).expect(tooLarge);
+    await client.silence('Not acceptable').get('/v1/test/both').set({ accept: accept.invalidLength }).expect(tooLarge);
+    await client.get('/v1/test/both').set({ accept: 'application/yolo' }).expect(html);
   });
 
-  await it('handles accept header for produces multiple (2)', async () => {
-    // attempt 2 also doesnt work - different produces, but still only 1
-    await client.get('/v1/test/both').set({ accept: accept.json }).expect(json);
-    await client.get('/v1/test/both').set({ accept: accept.any }).expect(html);
-    await client.get('/v1/test/both').set({ accept: accept.empty }).expect(html);
-    await client
-      .silence('Not acceptable')
-      .get('/v1/test/both')
-      .set({ accept: accept.plaintext })
-      .expect(
-        notAcceptable(
-          'Requested content-type "text/plain" not supported. Supported content types are "application/json", "text/html"',
-        ),
-      );
-    await client.get('/v1/test/both').set({ accept: accept.html }).expect(html);
-    await client.get('/v1/test/both').set({ accept: accept.jsonOrHtml }).expect(json);
-    await client.get('/v1/test/both').set({ accept: accept.applicationOrHtml }).expect(json);
-    await client.get('/v1/test/both').set({ accept: accept.htmlOrJson }).expect(html);
-    await client.get('/v1/test/both').set({ accept: accept.htmlOrApplication }).expect(html);
-    await client.get('/v1/test/both').set({ accept: accept.jsonOrText }).expect(json);
-    await client.get('/v1/test/both').set({ accept: accept.textOrJson }).expect(html);
-    await client.get('/v1/test/both').set({ accept: accept.invalidWeight }).expect(html);
-    await client.silence('Not acceptable').get('/v1/test/json').set({ accept: accept.invalidLength }).expect(tooLarge);
+  await it('handles accept header for produces nothing', async () => {
+    // none of this works - the /test/both endpoint never receives both produces items
+    await client.get('/v1/test/none').set({ accept: accept.json }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.any }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.empty }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.plaintext }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.html }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.jsonOrHtml }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.applicationOrHtml }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.htmlOrJson }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.htmlOrApplication }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.jsonOrText }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.textOrJson }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.invalidWeight }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: accept.invalidLength }).expect(nothing);
+    await client.get('/v1/test/none').set({ accept: 'application/yolo' }).expect(nothing);
   });
 }).catch(console.error);

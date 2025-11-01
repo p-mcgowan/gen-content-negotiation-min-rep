@@ -1,7 +1,4 @@
 export default {
-  // testAlsoBothGet
-  testAlsoBothGet: { test: String },
-
   // testBothGet
   testBothGet: { test: String },
 
@@ -10,4 +7,7 @@ export default {
 
   // testJsonGet
   testJsonGet: { test: String },
+
+  // testNoneGet
+  testNoneGet: {},
 };

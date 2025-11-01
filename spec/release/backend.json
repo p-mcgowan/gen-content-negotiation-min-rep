@@ -19,50 +19,6 @@
     }
   ],
   "paths": {
-    "/test/also-both": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Produces both html and json",
-        "description": "Trying to get getSingleSuccessResponse template helper to put both produces in the routes file, didnt work",
-        "operationId": "testAlsoBothGet",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "test"
-                  ],
-                  "properties": {
-                    "test": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "202": {
-            "description": "Success",
-            "content": {
-              "text/html": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Both not found"
-          }
-        },
-        "x-passRequest": true
-      }
-    },
     "/test/both": {
       "get": {
         "tags": [
@@ -153,6 +109,23 @@
           },
           "404": {
             "description": "Json not found"
+          }
+        }
+      }
+    },
+    "/test/none": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Produces nothing",
+        "operationId": "testNoneGet",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Nothing not found (makes perfect sense)"
           }
         }
       }

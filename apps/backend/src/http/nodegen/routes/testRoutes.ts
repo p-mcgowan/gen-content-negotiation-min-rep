@@ -10,25 +10,6 @@ export default function () {
   const router = Router();
 
   /**
-   * Operation ID: testAlsoBothGet
-   * Summary: Produces both html and json
-   * Description: Trying to get getSingleSuccessResponse template helper to put both produces in the routes file, didnt work
-   */
-
-  router.get(
-    '/also-both' /* x-raw-body on path not found: Format the body */,
-    express.json({ limit: '50mb' }),
-    async (req: any, res: GenerateItExpressResponse) => {
-      res.inferResponseType(
-        await TestDomain.testAlsoBothGet(req),
-        200,
-        'application/json',
-        testTransformOutputs.testAlsoBothGet
-      );
-    }
-  );
-
-  /**
    * Operation ID: testBothGet
    * Summary: Produces both html and json
    *
@@ -41,7 +22,7 @@ export default function () {
       res.inferResponseType(
         await TestDomain.testBothGet(req),
         200,
-        'text/html',
+        'application/json,text/html',
         testTransformOutputs.testBothGet
       );
     }
@@ -81,6 +62,25 @@ export default function () {
         200,
         'application/json',
         testTransformOutputs.testJsonGet
+      );
+    }
+  );
+
+  /**
+   * Operation ID: testNoneGet
+   * Summary: Produces nothing
+   *
+   */
+
+  router.get(
+    '/none' /* x-raw-body on path not found: Format the body */,
+    express.json({ limit: '50mb' }),
+    async (req: any, res: GenerateItExpressResponse) => {
+      res.inferResponseType(
+        await TestDomain.testNoneGet(),
+        204,
+        undefined,
+        testTransformOutputs.testNoneGet
       );
     }
   );

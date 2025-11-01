@@ -2,7 +2,7 @@ cd "$(cd $(dirname $0) && pwd)"
 
 cat >src/http/interfaces/NodegenRequest.ts <<'REQ'
 import type { Request } from 'express';
-export type NodegenRequest = Request;
+export type NodegenRequest = Request & { defaultContentType?: string; };
 export default NodegenRequest;
 REQ
 

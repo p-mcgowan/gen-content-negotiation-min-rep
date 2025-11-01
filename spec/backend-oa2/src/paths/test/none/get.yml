@@ -1,0 +1,3 @@
+responses:
+  "204":
+    description: "No content"

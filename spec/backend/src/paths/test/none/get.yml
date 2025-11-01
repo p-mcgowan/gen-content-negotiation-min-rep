@@ -1,0 +1,6 @@
+summary: "Produces nothing"
+responses:
+  "404":
+    description: "Nothing not found (makes perfect sense)"
+  "204":
+    description: "No content"

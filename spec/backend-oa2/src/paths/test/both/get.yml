@@ -3,17 +3,8 @@ produces:
   - "application/json"
   - "text/html"
 responses:
-  "202":
-    description: "Success"
-    schema:
-      type: "string"
   "200":
     description: "Success"
+    # can't really do this properly in oas2 with generate-it response mapping
     schema:
-      type: "object"
-      required:
-        - "test"
-      properties:
-        test:
-          type: "string"
-
+      type: "string"

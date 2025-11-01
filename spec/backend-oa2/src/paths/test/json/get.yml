@@ -4,4 +4,9 @@ responses:
   "200":
     description: "Success"
     schema:
-      type: "string"
+      type: "object"
+      required:
+        - "test"
+      properties:
+        test:
+          type: "string"

@@ -1,31 +1,25 @@
 import { TestDomainInterface } from '@/http/nodegen/domainInterfaces/TestDomainInterface';
 import { HttpException } from '@/http/nodegen/errors';
-import { Request } from 'express';
+import { default as NodegenRequest } from '@/http/nodegen/interfaces/NodegenRequest';
 import { default as getPreferredResponseFormat } from 'src/http/nodegen/utils/getPreferredResponseFormat';
 
 class TestDomain implements TestDomainInterface {
-  async testAlsoBothGet(req: Request): Promise<string | { test: string }> {
-    const preferred = getPreferredResponseFormat(req.headers.accept || '*/*', ['text/html', 'application/json']);
-
+  async testBothGet(req: NodegenRequest): Promise<string | { test: string } | null> {
+    const preferred = getPreferredResponseFormat(req.headers.accept || '*/*', ['application/json', 'text/html']);
     if (preferred === 'text/html') {
       return `<h1> Hi </h1>`;
     } else if (preferred === 'application/json') {
       return { test: 'true' };
     }
 
-    throw new HttpException(406, `Not acceptable from domain - no valid preference: '${preferred}'`);
-  }
+    if (req.headers.accept === 'application/yolo') {
+      req.defaultContentType = 'text/html';
 
-  async testBothGet(req: Request): Promise<string | { test: string }> {
-    const preferred = getPreferredResponseFormat(req.headers.accept || '*/*', ['text/html', 'application/json']);
-
-    if (preferred === 'text/html') {
       return `<h1> Hi </h1>`;
-    } else if (preferred === 'application/json') {
-      return { test: 'true' };
     }
 
-    throw new HttpException(406, `Not acceptable from domain - no valid preference: '${preferred}'`);
+    // never really returned, infer response type will throw since cannot satisfy accept header
+    return null;
   }
 
   async testHtmlGet(): Promise<string> {
@@ -34,6 +28,10 @@ class TestDomain implements TestDomainInterface {
 
   async testJsonGet(): Promise<{ test: string }> {
     return { test: 'true' };
+  }
+
+  async testNoneGet(): Promise<void> {
+    return;
   }
 }
 

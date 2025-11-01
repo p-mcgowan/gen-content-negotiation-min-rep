@@ -8,10 +8,13 @@
     "build": "tsc && tsc-alias",
     "watch": "tsc-watch --onSuccess 'bash -c \"npx tsc-alias && echo done\"'",
     "test": "node -r source-map-support/register --test 'dist/test/**/*.spec.js'",
-    "gen": "node -r ./no-update.js node_modules/.bin/generate-it --dont-run-comparison-tool -yt https://github.com/acrontum/generate-it-typescript-server#fix/content-negotiation ../../spec/release/backend.json",
-    "gen2": "node -r ./no-update.js node_modules/.bin/generate-it --dont-run-comparison-tool -yt https://github.com/acrontum/generate-it-typescript-server#fix/content-negotiation ../../spec/release/backend-oa2.json",
-    "postgen": "bash postgen.sh",
-    "postgen2": "bash postgen.sh",
+    "g": "node -r ./no-update.js node_modules/.bin/generate-it --dont-run-comparison-tool -yt $GEN_TPL ../../spec/release/$GEN_SPEC.json",
+    "postg": "bash postgen.sh",
+    "gen": "GEN_TPL=~/source/acrontum/open-source/generate-it-typescript-server GEN_SPEC=backend npm run g",
+    "gen-feat-oas3": "GEN_TPL=https://github.com/acrontum/generate-it-typescript-server#fix/content-negotiation GEN_SPEC=backend npm run g",
+    "gen-feat-oas2": "GEN_TPL=https://github.com/acrontum/generate-it-typescript-server#fix/content-negotiation GEN_SPEC=backend-oa2 npm run g",
+    "gen-main-oas3": "GEN_TPL=https://github.com/acrontum/generate-it-typescript-server GEN_SPEC=backend npm run g",
+    "gen-main-oas2": "GEN_TPL=https://github.com/acrontum/generate-it-typescript-server GEN_SPEC=backend-oa2 npm run g",
     "lint": "prettier --write test src/domains"
   },
   "dependencies": {

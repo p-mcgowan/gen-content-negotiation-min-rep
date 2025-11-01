@@ -20,41 +20,6 @@
   ],
   "host": "api.example.com",
   "paths": {
-    "/test/also-both": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "operationId": "testAlsoBothGet",
-        "produces": [
-          "application/json",
-          "text/html"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "required": [
-                "test"
-              ],
-              "properties": {
-                "test": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "202": {
-            "description": "Success",
-            "schema": {
-              "type": "string"
-            }
-          }
-        },
-        "x-passRequest": true
-      }
-    },
     "/test/both": {
       "get": {
         "tags": [
@@ -67,20 +32,6 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "required": [
-                "test"
-              ],
-              "properties": {
-                "test": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "202": {
             "description": "Success",
             "schema": {
               "type": "string"
@@ -122,8 +73,29 @@
           "200": {
             "description": "Success",
             "schema": {
-              "type": "string"
+              "type": "object",
+              "required": [
+                "test"
+              ],
+              "properties": {
+                "test": {
+                  "type": "string"
+                }
+              }
             }
+          }
+        }
+      }
+    },
+    "/test/none": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "testNoneGet",
+        "responses": {
+          "204": {
+            "description": "No content"
           }
         }
       }
