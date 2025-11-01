@@ -171,7 +171,6 @@ describe('accept / content-type testing', async () => {
   });
 
   await it('handles accept header for produces multiple', async () => {
-    // none of this works - the /test/both endpoint never receives both produces items
     await client.get('/v1/test/both').set({ accept: accept.json }).expect(json);
     await client.get('/v1/test/both').set({ accept: accept.any }).expect(json);
     await client.get('/v1/test/both').set({ accept: accept.empty }).expect(json);
@@ -197,7 +196,6 @@ describe('accept / content-type testing', async () => {
   });
 
   await it('handles accept header for produces nothing', async () => {
-    // none of this works - the /test/both endpoint never receives both produces items
     await client.get('/v1/test/none').set({ accept: accept.json }).expect(nothing);
     await client.get('/v1/test/none').set({ accept: accept.any }).expect(nothing);
     await client.get('/v1/test/none').set({ accept: accept.empty }).expect(nothing);
