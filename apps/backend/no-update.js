@@ -12,3 +12,20 @@ generator.default.walk = async function () {
 
   return res;
 }
+
+// const paramsOutputReducer = require('generate-it/build/lib/template/helpers/paramsOutputReducer');
+// const porOrig = paramsOutputReducer.default;
+// paramsOutputReducer.default = (responses) => {
+//   const res = porOrig(responses);
+//   console.dir({responses, res}, { depth: null });
+//   return res;
+// }
+// const pathParamsToDomainParams = require('generate-it/build/lib/template/helpers/pathParamsToDomainParams');
+// const pptdpOrig = pathParamsToDomainParams.default;
+
+// pathParamsToDomainParams.default = function() {
+//   const res = pptdpOrig(...arguments);
+
+//   console.dir(arguments, { depth: null });
+//   return res;
+// }

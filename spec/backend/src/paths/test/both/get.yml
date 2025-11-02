@@ -6,9 +6,6 @@ responses:
   "200":
     description: "Success"
     content:
-      text/html:
-        schema:
-          type: "string"
       application/json:
         schema:
           type: "object"
@@ -17,3 +14,6 @@ responses:
           properties:
             test:
               type: "string"
+      text/html:
+        schema:
+          type: "string"

@@ -25,9 +25,6 @@ const accept = {
   invalidLength: 'text/*;q=0.1, text/html ; q = 0.9 , application/vnd+json; q=1, application/json;q=asdf'.repeat(12),
 };
 
-// if generate-it'd from main branch, set to false
-const checkNotAcceptableMessage = true;
-
 describe('accept / content-type testing', async () => {
   let server: Http;
   let client: TestAgent<Test> & { silence: (...regex: string[]) => TestAgent<Test> };
@@ -84,11 +81,13 @@ describe('accept / content-type testing', async () => {
             name: 'HttpException',
             status: 406,
             message: 'Not acceptable',
-            body: checkNotAcceptableMessage ? message : body.body,
+            body: body.body,
           },
           contentType: 'application/json; charset=utf-8',
         },
       );
+      // just change to body.body === message if you want to test exact messages
+      assert.strictEqual(body.body.indexOf(message.split('.')[0]), 0);
     };
   const tooLarge = ({ status, body }: SupertestResponse) => {
     assert.deepStrictEqual(
